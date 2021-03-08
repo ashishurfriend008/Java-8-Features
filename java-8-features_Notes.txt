@@ -1,0 +1,207 @@
+In Lambda, no need to create annonymous classes.
+
+BiConsumer functional interface is an extension to Consumer functional interface. Biconsumer functional interface accepts two methods i.e. accept and andThen methods. Here, accept method accept two input compared to the consumer funtional interface and perform some operations on the inputs that are passed to this accept method.
+
+Note - If both attributes can be combined to one single instance itself then go ahead and use biconsumer.There is no performance issue in both consumer and biconsumer. Its all going to perform accordingly as per requirement.  
+
+Predicate Function interface - comes under the package i.e. java.util.function package. Methods - boolean() method accepts one input.This is the abstract method which we are going to implement as part of lambda expression. As per the input parameter it is going to perform some operation and return boolean value either true or false. It also support some other default methods i.e. and, negate and or operation. While in case of negate operation its going to reverse the result of the expression that we are going to implement lambda expression. Next is the isEqual() method.
+
+Benefit of using Predicate functional interface is code reusability.
+
+Lambda always embraces the code reusability and more readable.
+
+In Lambda, it simplifies all logic and all logic is assigned to a variable and pass across the project just like anyother variable.It helps building the project quite faster and embraces the code resuability. Where as in case of legacy code, you put the common logic in utlity class and inside a method you will be having all these conditions and you could reference that logic from this class.
+
+BiPredicate is similar to Predicate and comes under java.util.function package.It has one method called test() and accepting two inputs and perform some kind of operation over inputs but the return type is boolean.Moreover, it has other default methods i.e. and, negate and or.
+Everything behaves the same as compared to Predicate but only one difference that is Predicate method test() accepts one input parameter and BiPredicate accepts two input parameters.
+
+Using Function Interface we can implement functionality as like we code method in java and assign that functionality to a variable.This functionality is new in java as a whole and this was not possible before java 8. it come under java.util.function package. It has one abstract method i.e. apply() and two default methods i.e. compose() and andThen(). You have to pass two different types when you define the function interface. We can do n number of compose and andThen functions and this part is called chaining.
+
+Difference between compose and andThen functions of funtion interface ?
+
+BiFunction Functional interface - It is similar to Function Interface but the only difference is BiFunction accepts two inputs and produces one output.Moreover, it has only one method i.e. andThen() method.
+
+Unary Operator Functional Interface - Unary Operator comes under java.util.function package. Whenever you have usecase where the input and output are of same type than in those kind of usecases you don't even have to use function you use unary operator. It extends Function interface.
+
+Binary Operator Functional Interface - Binary Operator comes under java.util.function package. It is going to act on two inputs and produce one output.It extends BiFunction interface. If the inputs and output are of same type and than in those kind of use cases we will use binary operators.It has two additional static methods i.e. minBy() and maxBy() methods. Both methods accepts Comparator.
+
+Supplier Functional Interface - It comes under java.util.function package. It has one method i.e. get() method and returns type to the caller.It doesn't take any input but returns output. Moreover, it is quite opposite to the Consumer functional interface.In case of Consumer, it accepts an input and it doesn't return any output.
+
+The sole purpose of method reference is to simply the implementation of functional interfaces.It is the shortcut for writing the lambda expressions. It is used to refer a method in a class.Method Reference is applicable where Lambda expressions referring to the method directly.
+Using Lambda:
+Function<String,String> toUpperCaseLambda = (s)->s.toUpperCase();
+
+Using Method Reference:
+Function<String,String> toUpperCaseMethodRefernce =
+String::toUpperCase;
+
+If we are not referencing any method i.e. writing own logic.
+
+Note - It is not necessary every method reference compatible in real world application.
+
+Constructor Reference - Constructors in java gets invoked during the creation of an object.
+syntax :- Classname::new
+We can only use constructor reference in the contex of functional interfaces
+Example:
+Supplier<Student> studentSupplier = Student::new;(creates a supplier which is going to return a brand new object 
+whenever get method is invoked in this Supplier function interface)
+Invalid:
+Student student = Student::new; // compilation issue 
+
+Lambdas have some restrictions on using local variables:
+• Not allowed to use the same the local variable name as
+lambda parameters or inside the lambda body.
+• Not allowed re-assign a value to a local variable.
+No restrictions on instance variables.
+
+Effectively Final
+• Lambda’s are allowed to use local variables but not allowed to
+modify it even though they are not declared final. This concept is
+called Effectively Final.
+• Not allowed to modify the value inside the lamda
+int value =4;
+Consumer<Integer> c1 = (a) -> {
+//value=6; //reassigning not allowed
+// System.out.println(i+value);
+};
+• Prior to Java 8 , any variable that’s used inside the anonymous
+class should be declared final.
+
+Advantages of Effectively Final:
+• Easy to perform concurrency operations.
+• Promotes Functional Programming and demotes the
+Imperative style programming.
+
+Stream API - Main purpose is to perform operation on collections. Parallel operations are easy to perform.
+Streams API manipulative collections in a declarative way.
+Streams doesn't allow to modify, add and remove elements over collections.
+Note - You can traverse streams over collections only once. But in Collections, we can iterate over collections multiple times.
+
+map() method in Stream API :- It is used to change the type of the stream from one type to another.
+
+flatmap() Stream API :- It is similar to map() method which is going to transform one type to the another type Or it can transform from one form of the same type to another form of the same type. But, it is used in the contex of stream where each and every element in stream represents multiple elements. Every element in stream represents a list and every element in stream represents an arrays because list and arrays have multiple elements.
+
+distinct(), count() and sorted() Stream API - distict returns a unique set of elements from the stream, count returns a long with the total number of elements in the Stream and for Sort it is going to sort elements in the stream.
+
+filter() Stream API :- filter elements in the stream. Input to the filter is a Predicate Functional Interface.
+
+reduce() Stream API - Part 1 :- This is a terminal operation. It is used to reduce the contents of a stream to a single value. For example :- find sum of all the elements in the stream, perform multiplications of all the elements in a stream, find out who is the highest grade student out of the student database. In those kind of scenarios we can make use of the reduce function. 
+It takes two parameter as inputs i.e. First parameters(default or initial value), Second parameters(Binary Operator).
+Binary Operator is like a function which takes two inputs of the same type and returns an output of the same type.
+
+reduce() Stream API - Part 2 :- This is one of the popular reduce() function. The reduce() function idea is to get the stream and try to reduce that stream into one single value that you are looking for.This reduce stream is used if We are going to elaborate student database and then we are going to find out how to reduce the student who has the highest gpa in this whole collection that we have.
+
+Map + Filter + Reduce Pattern :- We will perform the use case of how many number of note books each and every student has.
+
+reduce () function - It always returns a output for every element that it performs reduce operation in the stream.
+
+limit() and skip() Stream API :- These two functions helps to create a sub- stream.In limit(), limits the n number of elements to be processed in the stream. While the skip(), skips the n number of elements from the stream.
+
+allMatch(), anyMatch(), noneMatch() Stream Operation - All these functions takes in a predicate as an input and returns a Boolean as an output.
+anyMatch() - Returns true if any one of the element matches the predicate, otherwise false.
+allMatch() - Returns true if all the elements in the stream matches the predicate, otherwise false.
+noneMatch() - It is just opposite to allMatch().Returns true if none of the element in the stream matches the predicate,otherwise false.
+
+findAny() and findFirst() Stream Operation - This is basically used to find an element in the string.Both the functions return the result of type Optional i.e. the element itself.
+findFirst() - Returns first element in the string.
+findAny() - Returns first encountered element in the stream.
+
+The difference is that when you run the same stream in the parallel context/mode.  
+
+of(), iterate(), generate() factory methods :- 
+of() - Createa a stream of certain values passed to this method.
+iterate() and generate() - Used to create infinite streams untill it reaches to max value.
+
+Numeric Streams - Represents primitive values in a stream.There are three different type IntStream, LongStream, DoubleStream.
+
+Numeric Stream Ranges :-
+IntStream.range(1,50) - Returns an IntStream of 49 elements from 1 to 49.
+IntStream.rangeClosed(1,50) - Returns an IntStream of 50 elements from 1 to 50.
+LongStream.range(1,50) - Returns a LongStream of 49 elements from 1 to 49.
+LongStream.rangeClosed(1,50) - Returns a LongStream of 50 elements from 1 to 50.
+DoubleStream - It does not support range() and rangeClosed().
+
+sum(), max(), min() and average() Aggregate Functions
+
+Boxing() and Unboxing() :- 
+Boxing() - Converting primitive types to Wrapper class type i.e. converting int(primitive) to Integer(Wrapper).
+Unboxing() - COnverting Wrapper class type to primitive type i.e.converting Integer(Wrapper) to int(Primitive).
+
+mapToObj(), mapToLong(), mapToDouble() :-
+mapToObj() - Convert each element numeric stream to some object.
+mapToLong() - Convert numeric stream to a Long stream.
+mapToDouble() - Convert numeric stream to a Double stream.
+
+Terminal Operations :- It collects the data for you.Terminal Operations starts the whole stream pipeline.Some of the terminal operations are forEach(), min(), max(), reduce(), collect() etc.
+collect() Terminal Operation - The collect() method takes in an input of type collector.This produces the result as per the input passed to the collect() method.
+joining() - This collector performs the String concatination on the elements in the stream.Joining will be an input to the collect method. It has three overloaded versions.
+counting() - This collector returns total number of elements the collector collected as a result.
+collector() - This collector applies a transformation function first and then collects the data in a collection(could be any type of collection).
+maxBy() and minBy() Collectors :- It takes in Comparator as input and returns Optional as an output.
+maxBy() - It is always used in conjunction with comparator and returns the max element based on the property passed to the comparator.
+minBy() - It is always used in conjunction with comparator and returns the smallest element based on the property passed to the comparator.
+
+
+summingInt() :- This collector going to return sum as a result.
+averagingInt() :- This collector returns the average as a result.
+
+groupingBy() :- This collector is equivalent to the groupBy() operation in SQL.It is going to group the elements based on property that is being passed by groupBy Collector.The output of groupingBy() is always going to be Map<K,V>.There are three different version og groupingBy() Collector. They are groupingBy(classifier) - determines what is the classification value that needs to be applied to that stream input, groupingBy(classifier, downstream)- downstream can be of another Collector(anytype) and groupingBy(classifier, supplier, downstream) - supplier is use to override the default map factory. 
+
+maxBy() and minBy() with groupingBy() :- Use case - Calculate top Gpa student in each grade and least Gpa student in each grade.
+
+partitioningBy() - This Collector is also a kind of groupingBy().This partitioningBy() accepts a predicate as an input and output is going to be a Map<K,V>.The key of the return type is always going to be a Boolean.There are two different versions of partitioningBy().They are partitioningBy(predicate) and partitioningBy(predicate,downstream).
+
+Parallel Stream :- It is something which is going to split the source data into multiple parts, process them parallely/concurrently and combine the result.And, give you the result as an output.
+
+How parallel stream works behind the scenes :- Parallel stream uses the Fork/Join Framework to process the stream parallely that got introduced in java 7. Fork Join creates multiple threads for you i.e. number of processor available in the machine.
+
+Introduction To Optional
+------------------------
+Introduced in java 8 to represent a Non-Null value in java.The main purpose to avoid "Null Pointer Exception" and "Unnecessary null checks".Optional is inspired from other languages like scala, groovy etc.
+
+Default and static methods in Interfaces
+----------------------------------------
+>> Only allowed to declare the method. Not allowed to implement a method in interface.
+
+>> Implementation is only allowed in the implementation class. The class that implement the interface should implement the logic for the declared method in the interface.
+
+>> The class that already implements the interface should implement the new methods, otherwise, it leads to compilation issues. The main impact because of this is for the library creators. It was really hard to introduce the new functionalities in the interfaces.In order to avoid this, the java creators made the change to allow the method implementation in the interfaces is of via static and default methods.
+
+>> Default methods - Default methods in interfaces will have the new default keyoword as part of method signature itself which then registers that method as a default method in the interface.
+
+Example from List Interface:
+default void sort(Comparator<? super E> c) {
+Object[] a = this.toArray();
+Arrays.sort(a, (Comparator) c);
+ListIterator<E> i = this.listIterator();
+for (Object e : a) {
+i.next();
+i.set((E) e);
+}
+}
+
+It has the default keyword as part of method signature.With that the java compiler will allow the method implementation in interfaces.
+
+>> Prior to Java 8 we normally use Collections.sort() to perform the similar operation. 
+
+>> Default methods can be overridden in the implementation class.
+
+>> Default methods is going to help java developers to introduce new functionalities in future without having any impact to the current classes that implements the interface.
+
+>> Static methods - Similar to default methods we also have static methods also allowed as part of interfaces. 
+
+>> The only difference between the two is that the static methods can not be overridden by the implementation classes.  
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
